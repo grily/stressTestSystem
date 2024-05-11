@@ -1,0 +1,57 @@
+<!--
+	Rules: All input elements must be enclosed in a form
+	all resources must be referenced relative to res 
+ -->
+<div class="jmxElement <%=elementType%>" >
+	<form>
+		<div class="headline">
+			<img src="res/thread.gif"/>
+			<span class="jmxType">SteppingThreadGroup</span>
+			<span class="label">Name</span> <input type="textbox" name="elementName" value="<%=elementName%>"></input>
+			<span> <input type="checkbox" value="" name="elementEnabled" <%=(elementEnabled==true ? "checked" : "")%> ></input></span>
+			<span class="toggle toggleAttrs"> ... </span>
+		</div>
+		<div class="body collapsed">
+			<div>
+				<div><strong>Action to be taken after a sampler error</strong></div>
+				<!-- TODO: put in correct values instead of C, STNL etc -->
+				<input type="radio" name="onSampleError" value="continue" <%=(onSampleError=='continue'? "checked" : "" )%> >Continue</input>
+				<input type="radio" name="onSampleError" value="startnextloop" <%=(onSampleError=='startnextloop'? "checked" : "" )%> >Start Next Thread Loop</input>
+				<input type="radio" name="onSampleError" value="stopthread" <%=(onSampleError=='stopthread'? "checked" : "" )%> >Stop Thread</input>
+				<input type="radio" name="onSampleError" value="stoptest" <%=(onSampleError=='stoptest'? "checked" : "" )%> >Stop Test</input>
+				<input type="radio" name="onSampleError" value="stoptestnow" <%=(onSampleError=='stoptestnow'? "checked" : "" )%> >Stop Test Now</input>
+			</div>
+			<div>
+				<div><strong>Thread Properties</strong></div>
+				<div class="strProp">
+					<span class="label">Number of Threads(users)</span> <input type="textbox" name="numThreads" value="<%=numThreads%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">Threads initial delay</span> <input type="textbox" name="threadsInitialDelay" value="<%=threadsInitialDelay%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">Start users count</span> <input type="textbox" name="startUsersCount" value="<%=startUsersCount%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">Start users count burst</span> <input type="textbox" name="startUsersCountBurst" value="<%=startUsersCountBurst%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">Start users period</span> <input type="textbox" name="startUsersPeriod" value="<%=startUsersPeriod%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">Stop users count</span> <input type="textbox" name="stopUsersCount" value="<%=stopUsersCount%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">Stop users period</span> <input type="textbox" name="stopUsersPeriod" value="<%=stopUsersPeriod%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">flighttime</span> <input type="textbox" name="flighttime" value="<%=flighttime%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">rampUp</span> <input type="textbox" name="rampUp" value="<%=rampUp%>"></input>
+				</div>
+			</div>
+
+		</div>
+	</form>
+</div>

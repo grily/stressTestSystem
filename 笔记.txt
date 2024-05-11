@@ -1,0 +1,20 @@
+
+service ssh start
+并在/etc/ssh/sshd_config文件中 新增下面的支持的算法
+HostKeyAlgorithms ssh-dss,ssh-rsa
+MACs hmac-sha2-256,hmac-sha1-96
+KexAlgorithms diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group-exchange-sha256,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,curve25519-sha256@libssh.org
+
+启动命令  Djava.rmi.server.hostname ubuntu的ip地址
+/opt/apache-jmeter-5.5/bin/jmeter-server -Djava.rmi.server.hostname=172.31.237.77 -Jserver_port=1099 -Jserver.rmi.localport=1099
+
+启动命令
+./jmeter-server -Djava.rmi.server.hostname=172.31.237.77
+
+手动检查是否启动成功
+ps -efww|grep -w 'jmeter-server'|grep -v grep|cut -c 9-15
+
+
+启动时 环境中已经有java环境  但是返回这个  没有启动成功
+Neither the JAVA_HOME nor the JRE_HOME environment variable is defined
+

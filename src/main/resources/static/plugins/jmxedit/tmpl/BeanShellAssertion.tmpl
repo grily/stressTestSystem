@@ -1,0 +1,25 @@
+<div class="jmxElement <%=elementType%>" >
+	<form>
+		<div class="headline">
+			<img class="icon" src="res/document-preview.png"/>
+			<span class="jmxType">BeanShellAssertion</span>
+			<span class="label">Name</span><input type="textbox" name="name" value="<%=name%>"></input>
+			<span> <input type="checkbox" value="" name="elementEnabled" <%=(elementEnabled==true ? "checked" : "")%> ></input></span>
+			<span class="toggle toggleAttrs"> ... </span>
+		</div>
+		<div class="body collapsed">
+			<div class="strProp">
+				<div><strong>BeanShellAssertionGui Config</strong></div>
+				<div><span class="label">BeanShellAssertion.resetInterpreter </span><input type="checkbox" name="resetInterpreter" value="" <%=(resetInterpreter==true ? "checked" : "")%> ></input></div>
+			  <div><span class="label">BeanShellAssertion.parameters </span><input type="textbox" name="parameters" value="<%=parameters%>"></input></div>
+				<div>
+					<span class="label">BeanShellAssertion.filename </span><input type="textbox" name="filename" value="<%=filename%>"></input>
+				</div>
+			</div>
+			<div class="strProp">
+				<div><strong>BeanShellAssertion.query:</strong> </div>
+				<textarea name="query" rows="10" cols="80"><%=query%></textarea>
+			</div>
+		</div>
+	</form>
+</div>

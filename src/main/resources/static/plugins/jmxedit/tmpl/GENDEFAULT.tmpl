@@ -1,0 +1,22 @@
+<div class="jmxElement <%=name%>" >
+	<form>
+		<div class="headline">
+			<img class="icon" src="res/feather.gif"/>
+			<span class="jmxType"><%=elementType%></span>
+			<span class="label">Name</span> <input type="textbox" name="name" value="<%=name%>"></input>
+			<span> <input type="checkbox" value="" name="elementEnabled" <%=(elementEnabled==true ? "checked" : "")%> ></input></span>
+			<span class="toggle toggleAttrs"> edit xml... </span>
+		</div>
+		<div class="body collapsed">
+		<%
+		if(ariablesXML != ""){
+			var scrubbedContent = ariablesXML.replace(/"/g,"'");
+			/* TODO: SET ROWS BELOW TO NUMBER OF LINES IN CONTENT */
+			%>
+			<textarea class="textarea-inherit" cols="100" rows="<%=scrubbedContent.split(/\r?\n/).length+1%>" name="ariablesXML"><%=scrubbedContent%></textarea>
+			<%
+		}
+		%>
+		</div>
+	</form>
+</div>

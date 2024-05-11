@@ -1,0 +1,155 @@
+<div class="jmxElement <%=elementType%>" >
+	<form>
+		<div class="headline">
+			<img class="icon" src="res/pipet.png"/>
+			<span class="jmxType">HTTPSamplerProxy</span>
+			<span class="label">Name</span> <input type="textbox" name="name" value="<%=name%>"></input>
+			<span> <input type="checkbox" value="" name="elementEnabled" <%=(elementEnabled==true ? "checked" : "")%> ></input></span>
+			<span class="toggle toggleAttrs"> ... </span>
+		</div>
+		<div class="body collapsed">
+<!-- 			
+			<div class="strProp">
+				<span class="label">Comments</span> <input type="textbox" name="comments" value="comments"></input>
+			</div> 
+-->
+			<div class="strProp">
+				<div><strong>Web Server</strong></div>
+				<span class="label">Server Name or IP</span>  <input type="textbox" name="domain" value="<%=domain%>"></input>
+				<span class="label">Port</span> <input type="textbox" name="port" value="<%=port%>"></input>
+			</div>
+			
+			<div class="strProp">
+				<div><strong>HTTP Request</strong></div>
+				<span class="label">Protocol</span> <input type="textbox" name="protocol" value="<%=protocol%>"></input>
+				<span class="label">Content Encoding</span> <input type="textbox" name="contentEncoding" value="<%=contentEncoding%>"></input>
+				<div>
+					<span class="label">method</span> <select>
+					<option><%=method%></option>
+					</select>
+					<span class="label">Path</span> <input type="textbox" size="48" name="path" value="<%=path%>"></input>
+				</div>
+			</div>
+			<div class="strProp">
+			    <%
+			    
+			    if(true == autoRedirects) {
+			    %>
+				<input id="autoRedirect" type="checkbox" name="autoRedirects" value="" checked="checked" onclick="if(this.checked){this.value=true;followRedirect.value=false;if(followRedirect.checked){followRedirect.click();}}" /> Redirect Automatically 
+				<input id="followRedirect" type="checkbox" name="followRedirects" value="" onclick="if(this.checked){this.value=true;autoRedirect.value=false;if(autoRedirect.checked){autoRedirect.click();}}" /> Follow Redirects 
+				<%} else if (true == followRedirects) {%>
+				<input id="autoRedirect" type="checkbox" name="autoRedirects" value="" onclick="if(this.checked){this.value=true;followRedirect.value=false;if(followRedirect.checked){followRedirect.click();}}" /> Redirect Automatically 
+				<input id="followRedirect" type="checkbox" name="followRedirects" value="" checked="checked" onclick="if(this.checked){this.value=true;autoRedirect.value=false;if(autoRedirect.checked){autoRedirect.click();}}" /> Follow Redirects
+				<%} else {%>
+				<input id="autoRedirect" type="checkbox" name="autoRedirects" value="" onclick="if(this.checked){this.value=true;followRedirects.value=false;if(followRedirect.checked){followRedirect.click();}}" /> Redirect Automatically 
+				<input id="followRedirect" type="checkbox" name="followRedirects" value="" onclick="if(this.checked){this.value=true;autoRedirects.value=false;if(autoRedirect.checked){autoRedirect.click();}}" /> Follow Redirects
+				<%}%>
+				<input type="checkbox" name="useKeepalive" value=<%=(useKeepalive==true ? true : false )%> <%=(useKeepalive==true ? checked="checked" : "" )%> /> Use KeepAlive <br/>
+				<input type="checkbox" name="doMultipartPost" value=<%=(doMultipartPost==true ? true : false )%> <%=(doMultipartPost==true ? checked="checked" : "" )%> /> Use multipart/form-data
+				<input type="checkbox" name="browserMultipart" value=<%=(browserMultipart==true ? true : false )%> <%=(browserMultipart==true ? checked="checked" : disabled="disabled" )%> /> Browser-compatible headers
+			</div>
+			<div class="strProp" style="display:<%=((postBodyRaw !=true && argumentsXML.replace(/(^\s*)|(\s*$)/g,'').length > 20) ? "block" : "none")%>;">
+				<div><strong>User Defined Variables - HTTPSampler.arguments</strong></div>
+				<span>
+					<textarea name="argumentsXML" class="textarea-inherit" rows="7" cols="60"><%=argumentsXML.replace(/"/g,"'")%></textarea>
+				 </span>	
+			</div>
+			<div class="strProp" style="display:<%=(postBodyRaw !=true ? "none" : "block")%>;">
+				<div><strong>User Defined Variables - HTTPSampler.postBody</strong></div>
+                <%
+                 function getByteLen(val) {
+                     var len = 0;
+                     for (var i = 0; i < val.length; i++) {
+                        var patt = new RegExp(/[^\x00-\xff]/ig);
+                        var a = val[i];
+                        if (patt.test(a))
+                        {
+                             len += 2;
+                        } else {
+                             len += 1;
+                        }
+                     }
+                      return len;
+                 }
+                 var valueRows = argumentValue.split(/\r?\n/).length + 1;
+                 var diviRows = parseInt(getByteLen(argumentValue) / 162) + 1;
+                 if (diviRows > valueRows) {
+                       valueRows = diviRows;
+                 }
+                %>
+				<span>
+					<textarea name="argumentValue" class="textarea-inherit" rows="<%=((postBodyRaw == true && valueRows < 7) ? valueRows : 7)%>" cols="60"><%=argumentValue.replace(/"/g,"'")%></textarea>
+				</span>	
+			</div>
+			<div class="strProp" style="display:<%=(fileArgXML.replace(/(^\s*)|(\s*$)/g,'').length < 20 ? "none" : "block")%>;">
+				<div><strong>User Defined Variables - HTTPsampler.Files</strong></div>
+				<span>
+					<textarea name="fileArgXML" class="textarea-inherit" rows="7" cols="60"><%=fileArgXML.replace(/"/g,"'")%></textarea>
+				</span>	
+			</div>
+			<div class="strProp">
+				<div><strong>Advanced - Client implementation</strong></div>
+				<%if (implementation != "") {%>
+				<span>
+				   <span class="label">Implementation</span> <select name="implementation">
+					<option><%=implementation%></option>
+					</select>
+				</span>
+				<%}%>
+				<span class="label">Connect Timeout</span> <input type="textbox" size="10" name="connect_timeout" value="<%=(connect_timeout > 0 ? connect_timeout : "")%>"></input>
+				<span class="label">Response Timeout</span> <input type="textbox" size="10" name="response_timeout" value="<%=(response_timeout > 0 ? response_timeout : "")%>"></input>
+			</div>
+			
+			<div class="strProp">
+			<%if(image_parser==true){%>
+			    <div><div><strong>Advanced - Embedded Resources from HTML Files</strong></div>
+					<input type="checkbox" name="image_parser" value=<%=(image_parser==true ? true : false )%> <%=(image_parser==true ? checked="checked" : "" )%> onclick="if(this.checked){concurrent_down.disabled=false;embeddedUrlRe.disabled=false;}else{if(concurrent_down.checked) concurrent_down.click();concurrent_down.disabled=true; concurrent_pool.disabled=true;embeddedUrlRe.disabled=true;}" /> <span class="label">Retreve All Embedded Resources</span>
+					<input type="checkbox" id="concurrent_down" name="concurrentDwn" value=<%=(concurrentDwn==true ? true : false )%> <%=(concurrentDwn==true ? checked="checked" : "" )%> onclick="if(this.checked){concurrent_pool.disabled=false;}else{concurrent_pool.disabled=true;}" <%=(image_parser==true ? "" : disabled="disabled" )%> /> <span class="label">Parallel downloads.</span>
+					<span class="label"> Number:</span> <input type="textbox" size="12" id="concurrent_pool" name="concurrentPool" value="<%=concurrentPool%>" <%=(concurrentDwn==true ? "" : disabled="disabled" )%>></input>
+					<div><span class="label"> URLs must match:</span> <input type="textbox" size="48" id="embeddedUrlRe" name="embedded_url_re" value="<%=embedded_url_re%>" <%=(image_parser==true ? "" : disabled="disabled" )%>></input></div>
+				</div>
+			<%}%>
+			</div>
+			
+			<div class="strProp">
+			<%if(ipSource!=""){%>
+				<div><div><strong>Advanced - Source address</strong></div>
+				<%if (ipSourceType > 0) {%>
+				<span>
+				   <select name="ipSourceType">
+				   <%if (ipSourceType==1) {%>
+					<option value="<%=ipSourceType%>">Device</option>
+					<%} else if(ipSourceType==2){%>
+					<option value="<%=ipSourceType%>">Device IPv4</option>
+					<%} else if(ipSourceType==3){%>
+					<option value="<%=ipSourceType%>">Device IPv6</option>
+					<%}%>
+					</select> 
+				</span>
+				<%} else {%>
+				<span class="label">IP/Hostname </span>
+				<%}%>
+				<input type="textbox" size="32" name="ipSource" value="<%=ipSource%>" <%=(ipSource!="" ? "" : disabled="disabled" )%>></input>
+				</div>
+			<%}%>
+			</div>
+			
+			<div class="strProp">
+			<%if(proxyHost != ""){%>
+			   <div><strong>Advanced - Proxy Server</strong></div>
+			   <span class="label">Scheme: </span><input type="textbox" size="8" name="proxyScheme" value="<%=proxyScheme%>" <%=(proxyScheme!="" ? "" : disabled="disabled" )%>></input>
+			   <span class="label">Server Name or IP: </span><input type="textbox" size="20" name="proxyHost" value="<%=proxyHost%>" <%=(proxyHost!="" ? "" : disabled="disabled" )%>></input>
+			   <span class="label">Port Number: </span><input type="textbox" size="6" name="proxyPort" value="<%=proxyPort%>" <%=(proxyPort!="" ? "" : disabled="disabled" )%>></input>
+			   <span class="label">Userame: </span><input type="textbox" size="10" name="proxyUser" value="<%=proxyUser%>" <%=(proxyUser!="" ? "" : disabled="disabled" )%>></input>
+			   <span class="label">Password </span><input type="textbox" size="10" name="proxyPass" value="<%=proxyPass%>" <%=(proxyPass!="" ? "" : disabled="disabled" )%>></input>
+			<%}%>
+			</div>
+			<div class="strProp">
+			<%if(md5==true){%>
+			   <div><strong>Advanced - Optional Tasks</strong></div>
+			   <input type="checkbox" name="md5" value=<%=(md5==true ? true : false )%> <%=(md5==true ? checked="checked" : "" )%> /> Save response as MD5 hash?
+			<%}%>
+			</div>
+		</div>
+	</form>
+</div>

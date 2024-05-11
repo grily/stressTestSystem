@@ -1,0 +1,47 @@
+<!--
+	Rules: All input elements must be enclosed in a form
+	all resources must be referenced relative to res 
+ -->
+<div class="jmxElement <%=elementType%>" >
+	<form>
+		<div class="headline">
+			<img src="res/document-export.png"/>
+			<span class="jmxType">RegexExtractor</span>
+			<span class="label">Name</span> <input type="textbox" name="name" value="<%=name%>"></input>
+			<span> <input type="checkbox" value="" name="elementEnabled" <%=(elementEnabled==true ? "checked" : "")%> ></input></span>
+			<span class="toggle toggleAttrs"> ... </span>
+		</div>
+    <div class="body collapsed">
+			<div>
+				<div><strong>Apply to</strong></div>
+				<input type="radio" name="scope" value="all" <%=(scope=='all'? "checked" : "" )%> >Main sample and sub-samples</input>
+				<input type="radio" name="scope" value="" <%=(scope==''? "checked" : "" )%> >Main sample only</input><br/>
+				<input type="radio" name="scope" value="children" <%=(scope=='children'? "checked" : "" )%> >Sub-samples only</input>
+				<input type="radio" name="scope" value="variable" <%=(scope=='variable'? "checked" : "" )%> >JMeter Variable Name to use</input>
+				<div><span>Variable Name </span> <input type="textbox" name="variable" value="<%=variable%>"></input></div>
+			</div>
+			<div>
+				<div><strong>Use Headers</strong></div>
+				<input type="radio" name="useHeaders" value="false" <%=(useHeaders=='false'? "checked" : "" )%> >Body</input>
+				<input type="radio" name="useHeaders" value="unescaped" <%=(useHeaders=='unescaped'? "checked" : "" )%> >Body(unescaped)</input>
+				<input type="radio" name="useHeaders" value="as_document" <%=(useHeaders=='as_document'? "checked" : "" )%> >Body as a document</input>
+				<input type="radio" name="useHeaders" value="true" <%=(useHeaders=='true'? "checked" : "" )%> >Response Headers</input><br/>
+				<input type="radio" name="useHeaders" value="request_headers" <%=(useHeaders=='request_headers'? "checked" : "" )%> >Request Headers</input>
+				<input type="radio" name="useHeaders" value="URL" <%=(useHeaders=='URL'? "checked" : "" )%> >URL</input>
+				<input type="radio" name="useHeaders" value="code" <%=(useHeaders=='code'? "checked" : "" )%> >Response Code</input>
+				<input type="radio" name="useHeaders" value="message" <%=(useHeaders=='message'? "checked" : "" )%> >Response Message</input>
+			</div>
+			<div>
+				<div><strong>Regex Properties</strong></div>
+				<div class="strProp">
+					<div><span class="label">refname </span>&nbsp;<input type="textbox" name="refname" value="<%=refname%>"></input></div>
+					<div><span class="label">regex </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea name="regex" style="width:170px;height:26px;"><%=regex%></textarea></div>
+					<div><span class="label">template </span><input type="textbox" name="template" value="<%=template%>"></input></div>
+					<div><span class="label">match_number </span><input type="textbox" name="match_number" value="<%=match_number%>"></input></div>
+					<div><span class="label">default </span><input type="textbox" name="defaultValue" value="<%=defaultValue%>"></input>
+						<input type="checkbox" value="" name="defaultEmptyValue" <%=(defaultEmptyValue==true ? "checked" : "")%> ></input> <span>use default value</span></div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,44 @@
+<!--
+	Rules: All input elements must be enclosed in a form
+	all resources must be referenced relative to res 
+ -->
+<div class="jmxElement <%=elementType%>" >
+	<form>
+		<div class="headline">
+			<img src="res/thread.gif"/>
+			<span class="jmxType">ThreadGroup</span>
+			<span class="label">Name</span> <input type="textbox" name="elementName" value="<%=elementName%>"></input>
+			<span> <input type="checkbox" value="" name="elementEnabled" <%=(elementEnabled==true ? "checked" : "")%> ></input></span>
+			<span class="toggle toggleAttrs"> ... </span>
+		</div>
+		<div class="body collapsed">
+			<div>
+				<div><strong>Action to be taken after a sampler error</strong></div>
+				<!-- TODO: put in correct values instead of C, STNL, ST, STest, STN etc -->
+				<input type="radio" name="onSampleError" value="continue" <%=(onSampleError=='continue'? "checked" : "" )%> >Continue</input>
+				<input type="radio" name="onSampleError" value="startnextloop" <%=(onSampleError=='startnextloop'? "checked" : "" )%> >Start Next Thread Loop</input>
+				<input type="radio" name="onSampleError" value="stopthread" <%=(onSampleError=='stopthread'? "checked" : "" )%> >Stop Thread</input>
+				<input type="radio" name="onSampleError" value="stoptest" <%=(onSampleError=='stoptest'? "checked" : "" )%> >Stop Test</input>
+				<input type="radio" name="onSampleError" value="stoptestnow" <%=(onSampleError=='stoptestnow'? "checked" : "" )%> >Stop Test Now</input>
+			</div>
+			<div>
+				<div><strong>Thread Properties</strong></div>
+				<div class="strProp">
+					<span class="label">Number of Threads(users)</span> <input type="textbox" name="numThreads" value="<%=numThreads%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">Ramp-Up period (in seconds)</span> <input type="textbox" name="rampTime" value="<%=rampTime%>"></input>
+				</div>
+			</div>
+			<div>
+				<span>Loop Count:</span> <input type="checkbox" name="contForever" value="" <%=(contForever==-1 ? "checked" : "")%> onclick="if(this.checked){loopsText.value=-1;loopsText.disabled=true;changeLoops(-1, loopController);} else {loopsText.disabled=false;}" ></input> <span>Forever</span>
+				<input id="loopsText" type="textbox" name="loops" value="<%=loops%>" <%=(contForever==-1 ? "disabled=true" : "")%> onBlur="changeLoops(this.value, loopController)"></input>
+			</div>
+			<textarea id="loopController" class="textarea-inherit" style="display:none" cols="100" rows="4" name="loopContrXML"><%=loopContrXML.replace(/"/g,"'")%></textarea>
+			<div> <input type="checkbox" value="" name="delayThreadCreation"></input> <span>Delay Thread Creation until needed</span></div>
+			<div> <input type="checkbox" value="" name="scheduler" <%=(scheduler==true ? "checked" : "")%> ></input> <span>Scheduler</span> </div>
+      <div> <span class="label">duration(s)</span> <input type="textbox" name="duration" value="<%=(duration > 0 ? duration : "")%>"></input> 
+			<span class="label">delay(s)</span> <input type="textbox" name="delay" value="<%=(delay > 0 ? delay : "")%>"></input></div>
+		</div>
+	</form>
+</div>

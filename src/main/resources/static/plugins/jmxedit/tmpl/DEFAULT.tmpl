@@ -1,0 +1,22 @@
+<div class="jmxElement <%=name%>" >
+	<form>
+		<div class="headline">
+			<img class="icon" src="res/feather-0.gif"/>
+			<span class="jmxType"><%=elementType%></span>
+			<strong>undefined</strong> <span class="jmxType"> <%=name%> </span>.
+			<span> <input type="checkbox" value="" name="elementEnabled" <%=(elementEnabled==true ? "checked" : "")%> ></input></span>
+			<span class="toggle toggleAttrs"> Edit Raw... </span>
+		</div>
+		<div class="body collapsed">
+		<%
+		if(value != ""){
+			var scrubbedContent = value.replace(/"/g,"'");
+			/* TODO: SET ROWS BELOW TO NUMBER OF LINES IN CONTENT */
+			%>
+			<textarea class="textarea-inherit" cols="100" rows="<%=(typeof(obj.value) == "string" ? obj.value.split(/\r?\n/).length + 1 : 20)%>" name="value"><%=scrubbedContent%></textarea>
+			<%
+		}
+		%>
+		</div>
+	</form>
+</div>

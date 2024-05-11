@@ -1,0 +1,399 @@
+{
+	"jmeterTestPlan" : {
+		"edit" 	: { "view" : false, "processChildren" : true}
+	},
+	"hashTree"	: {
+		"edit" :{
+			"attrs": {
+				"elementType" 			: { "path" : "name()" },
+				"pcpairs"				: {  "get" : "getPCPairs" }
+			}
+		}
+	},
+	"TestPlan"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					: { "path" : "@testname"},
+				"elementType" 			: { "path" : "name()"  },
+				"functionalMode"		: { "path" : "boolProp[@name='TestPlan.functional_mode']" ,			"type" : "boolean"},
+				"tearDownOnShutdown"		: { "path" : "boolProp[@name='TestPlan.tearDown_on_shutdown']" ,			"type" : "boolean"},
+				"serializeThreadGroups"	: { "path" : "boolProp[@name='TestPlan.serialize_threadgroups']" ,	"type" : "boolean"},
+				"comments"				: { "path" : "stringProp[@name='TestPlan.comments']" },
+				"userDefinedVariables"				: { "get"  : "VariablesAsXML", "type": "xml", "path" : "elementProp/collectionProp[@name='Arguments.arguments']" },
+				"userDefinedClassPath"	: { "path" : "stringProp[@name='TestPlan.user_define_classpath']" }
+			}
+		},
+		"create" 	: { "children" 	: { "name": "ThreadGroup", "allowed": "+" } , "model" : ""}
+	},
+	"ThreadGroup" : {
+		"edit" : {
+			"attrs":{
+				"elementName"			: { "path" : "@testname"  },		
+				"elementType" 		: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" },
+				"onSampleError"		: { "path" : "stringProp[@name='ThreadGroup.on_sample_error']" },
+				"numThreads"			: { "path" : "stringProp[@name='ThreadGroup.num_threads']" , 					"type" : "number"},
+				"rampTime"				: { "path" : "stringProp[@name='ThreadGroup.ramp_time']" , 						"type" : "time"},
+				"contForever" 		    : { "path" : "elementProp/intProp[@name='LoopController.loops']" , 	"type" : "number" , "readOnly" : true},
+				"loops" 				: { "path" : "elementProp/stringProp[@name='LoopController.loops']" , "readOnly" : true},
+				"loopContrXML" 	        : { "get"  : "VariablesAsXML", "type": "xml", "path" : "elementProp[@name='ThreadGroup.main_controller']" },
+				"delayThreadCreation"	: { "path" : "boolProp[@name='ThreadGroup.delayedStart']" ,				"type" : "boolean"},
+				"scheduler"				: { "path" : "boolProp[@name='ThreadGroup.scheduler']" , 						  "type" : "boolean"},
+				"duration"				: { "path" : "stringProp[@name='ThreadGroup.duration']" , 						"type" : "number"},
+				"delay"				    : { "path" : "stringProp[@name='ThreadGroup.delay']" , 						"type" : "number"}
+
+			}
+		}
+	},
+	"kg.apc.jmeter.threads.SteppingThreadGroup" : {
+		"edit" : {
+			"attrs":{
+				"elementName"			: { "path" : "@testname"  },		
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" },
+				"onSampleError"			: { "path" : "stringProp[@name='ThreadGroup.on_sample_error']" },
+				"numThreads"			: { "path" : "stringProp[@name='ThreadGroup.num_threads']" , 					"type" : "number"},
+				"threadsInitialDelay"	: { "path" : "stringProp[@name='Threads initial delay']" , 						"type" : "number"},
+				"startUsersCount"	    : { "path" : "stringProp[@name='Start users count']" , 						    "type" : "number"},
+				"startUsersCountBurst"	: { "path" : "stringProp[@name='Start users count burst']" , 					"type" : "number"},
+				"startUsersPeriod"	    : { "path" : "stringProp[@name='Start users period']" ,							"type" : "number"},
+				"stopUsersCount"	    : { "path" : "stringProp[@name='Stop users count']" ,							"type" : "number"},
+				"stopUsersPeriod"	    : { "path" : "stringProp[@name='Stop users period']" ,							"type" : "number"},
+				"flighttime"			: { "path" : "stringProp[@name='flighttime']" , 						        "type" : "time"},
+				"rampUp"				: { "path" : "stringProp[@name='rampUp']" , 						            "type" : "time"}
+			}
+		}
+	},
+	"com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup" : {
+		"edit" : {
+			"attrs":{
+				"elementName"		: { "path" : "@testname"  },		
+				"elementType" 		: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" },
+				"onSampleError"		: { "path" : "stringProp[@name='ThreadGroup.on_sample_error']" },
+				"TargetLevel"		: { "path" : "stringProp[@name='TargetLevel']" },
+				"RampUp"			: { "path" : "stringProp[@name='RampUp']" },
+				"Steps"	    		: { "path" : "stringProp[@name='Steps']" },
+				"Hold"	    		: { "path" : "stringProp[@name='Hold']" },
+				"LogFilename"	    : { "path" : "stringProp[@name='LogFilename']" },
+				"Iterations"	    : { "path" : "stringProp[@name='Iterations']"},
+				"Unit"				: { "path" : "stringProp[@name='Unit']" }
+			}
+		}
+	},
+	"com.blazemeter.jmeter.threads.arrivals.ArrivalsThreadGroup" : {
+		"edit" : {
+			"attrs":{
+				"elementName"		: { "path" : "@testname"  },		
+				"elementType" 		: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" },
+				"onSampleError"		: { "path" : "stringProp[@name='ThreadGroup.on_sample_error']" },
+				"TargetLevel"		: { "path" : "stringProp[@name='TargetLevel']" },
+				"RampUp"			: { "path" : "stringProp[@name='RampUp']" },
+				"Steps"	    		: { "path" : "stringProp[@name='Steps']" },
+				"Hold"	    		: { "path" : "stringProp[@name='Hold']" },
+				"LogFilename"	    : { "path" : "stringProp[@name='LogFilename']" },
+				"Iterations"	    : { "path" : "stringProp[@name='Iterations']"},
+				"ConcurrencyLimit"	    : { "path" : "stringProp[@name='ConcurrencyLimit']"},
+				"Unit"				: { "path" : "stringProp[@name='Unit']" }
+			}
+		}
+	},
+	"CookieManager"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" },
+				"ariablesXML" 	: { "get"  : "VariablesAsXML", "type": "xml", "path" : "." }
+			},
+			"view": "GENDEFAULT"
+		}
+	},
+	"ResponseAssertion"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" },
+				"ariablesXML" 	: { "get"  : "VariablesAsXML", "type": "xml", "path" : "." }
+			},
+			"view": "GENDEFAULT"
+		}
+	},
+	"BackendListener"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" },
+				"ariablesXML" 	: { "get"  : "VariablesAsXML", "type": "xml", "path" : "elementProp/collectionProp[@name='Arguments.arguments']" }
+			},
+			"view": "GENDEFAULT"
+		}
+	},
+	"HttpDefaultsGui"	: {
+		"edit" : {
+			"attrs" : {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "@testclass"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" },
+				"domain"				: { "path" : "stringProp[@name='HTTPSampler.domain']" },
+				"port"					: { "path" : "stringProp[@name='HTTPSampler.port']" },
+				"protocol"				: { "path" : "stringProp[@name='HTTPSampler.protocol']" },
+				"contentEncoding"		: { "path" : "stringProp[@name='HTTPSampler.contentEncoding']" },
+				"path"					: { "path" : "stringProp[@name='HTTPSampler.path']" },
+				"argumentsXML" 	: { "get"  : "VariablesAsXML", "type": "xml", "path" : "elementProp/collectionProp[@name='Arguments.arguments']" },
+				"argumentValue"			: { "path" : "elementProp/collectionProp/elementProp/stringProp[@name='Argument.value']" },
+				"postBodyRaw" 	: { "path" : "boolProp[@name='HTTPSampler.postBodyRaw']" ,"type" : "boolean" }
+			}
+		}
+	},
+	"Arguments"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" },
+				"ariablesXML" 	: { "get"  : "VariablesAsXML", "type": "xml", "path" : "collectionProp[@name='Arguments.arguments']" }
+			},
+			"view": "GENERIC"
+		}
+	},
+	"TransactionController"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" }
+			},
+			"view": "GENERIC"
+		}
+	},
+	"GenericController"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" }
+			},
+			"view": "GENERIC"
+		}
+	},
+	"SyncTimer"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" },
+				"groupSize"				: { "path" : "intProp[@name='groupSize']" },
+				"timeoutInMs"			: { "path" : "longProp[@name='timeoutInMs']" }
+			},
+			"view": "GENERIC"
+		}
+	},
+	"ConstantTimer"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" }
+			},
+			"view": "GENERIC"
+		}
+	},
+	"GaussianRandomTimer"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" }
+			},
+			"view": "GENERIC"
+		}
+	},
+	"HTTPSampler"		: {
+		"edit" : {
+			"attrs" : {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" },
+				"domain"				: { "path" : "stringProp[@name='HTTPSampler.domain']" },
+				"port"					: { "path" : "stringProp[@name='HTTPSampler.port']" },
+				"protocol"				: { "path" : "stringProp[@name='HTTPSampler.protocol']" },
+				"contentEncoding"		: { "path" : "stringProp[@name='HTTPSampler.contentEncoding']" },
+				"path"					: { "path" : "stringProp[@name='HTTPSampler.path']" },
+
+				"followRedirects"		: { "path" : "boolProp[@name='HTTPSampler.follow_redirects']" , 	"type" : "boolean"},
+				"autoRedirects"			: { "path" : "boolProp[@name='HTTPSampler.auto_redirects']" , 		"type" : "boolean"},
+				"useKeepalive"			: { "path" : "boolProp[@name='HTTPSampler.use_keepalive']" , 		"type" : "boolean"},
+				"doMultipartPost"		: { "path" : "boolProp[@name='HTTPSampler.DO_MULTIPART_POST']" ,	"type" : "boolean"},
+
+				"fileName"				: { "path" : "stringProp[@name='HTTPSampler.FILE_NAME']" },
+				"fileField"				: { "path" : "stringProp[@name='HTTPSampler.FILE_FIELD']" },
+				"mimetype"				: { "path" : "stringProp[@name='HTTPSampler.mimetype']" },
+
+				"monitor"				: { "path" : "stringProp[@name='HTTPSampler.monitor']" ,			"type" : "boolean"},
+
+				"embedded_url_re"		: { "path" : "stringProp[@name='HTTPSampler.embedded_url_re']" }
+			}
+		}
+	},
+	"HTTPSamplerProxy"		: {
+		"edit" : {
+			"attrs" : {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	    : { "path" : "@enabled" ,"type" : "boolean" },
+				"domain"				: { "path" : "stringProp[@name='HTTPSampler.domain']" },
+				"port"					: { "path" : "stringProp[@name='HTTPSampler.port']" },
+				"protocol"				: { "path" : "stringProp[@name='HTTPSampler.protocol']" },
+				"contentEncoding"		: { "path" : "stringProp[@name='HTTPSampler.contentEncoding']" },
+				"path"					: { "path" : "stringProp[@name='HTTPSampler.path']" },
+				"method"				: { "path" : "stringProp[@name='HTTPSampler.method']" },
+
+				"followRedirects"		: { "path" : "boolProp[@name='HTTPSampler.follow_redirects']" , 	"type" : "boolean"},
+				"autoRedirects"			: { "path" : "boolProp[@name='HTTPSampler.auto_redirects']" , 		"type" : "boolean"},
+				"useKeepalive"			: { "path" : "boolProp[@name='HTTPSampler.use_keepalive']" , 		"type" : "boolean"},
+				"doMultipartPost"		: { "path" : "boolProp[@name='HTTPSampler.DO_MULTIPART_POST']" ,	"type" : "boolean"},
+				"browserMultipart"		: { "path" : "boolProp[@name='HTTPSampler.BROWSER_COMPATIBLE_MULTIPART']" ,	"type" : "boolean"},
+
+				"fileName"				: { "path" : "stringProp[@name='HTTPSampler.FILE_NAME']" },
+				"fileField"				: { "path" : "stringProp[@name='HTTPSampler.FILE_FIELD']" },
+				"mimetype"				: { "path" : "stringProp[@name='HTTPSampler.mimetype']" },
+
+				"monitor"				: { "path" : "stringProp[@name='HTTPSampler.monitor']" ,			"type" : "boolean"},
+
+				"embedded_url_re"		: { "path" : "stringProp[@name='HTTPSampler.embedded_url_re']" },
+				"argumentsXML" 	: { "get"  : "VariablesAsXML", "type": "xml", "path" : "elementProp[@name='HTTPsampler.Arguments']/collectionProp[@name='Arguments.arguments']" },
+				"fileArgXML" 	: { "get"  : "VariablesAsXML", "type": "xml", "path" : "elementProp[@name='HTTPsampler.Files']/collectionProp[@name='HTTPFileArgs.files']" },
+				"argumentValue"			: { "path" : "elementProp/collectionProp/elementProp/stringProp[@name='Argument.value']" },
+				"postBodyRaw" 	: { "path" : "boolProp[@name='HTTPSampler.postBodyRaw']" ,"type" : "boolean" },
+				
+				"implementation"		: { "path" : "stringProp[@name='HTTPSampler.implementation']" },
+				"connect_timeout"		: { "path" : "stringProp[@name='HTTPSampler.connect_timeout']" , "type" : "number" },
+				"response_timeout"		: { "path" : "stringProp[@name='HTTPSampler.response_timeout']" , "type" : "number" },
+				"image_parser"		    : { "path" : "boolProp[@name='HTTPSampler.image_parser']" ,	"type" : "boolean"},
+				"concurrentDwn"		    : { "path" : "boolProp[@name='HTTPSampler.concurrentDwn']" ,	"type" : "boolean"},
+				"concurrentPool"		: { "path" : "stringProp[@name='HTTPSampler.concurrentPool']" , "type" : "number" },
+				"ipSourceType"		    : { "path" : "intProp[@name='HTTPSampler.ipSourceType']" , "type" : "number" },
+				"ipSource"		        : { "path" : "stringProp[@name='HTTPSampler.ipSource']" },
+				"proxyScheme"		        : { "path" : "stringProp[@name='HTTPSampler.proxyScheme']" },
+				"proxyHost"		        : { "path" : "stringProp[@name='HTTPSampler.proxyHost']" },
+				"proxyPort"		        : { "path" : "stringProp[@name='HTTPSampler.proxyPort']" },
+				"proxyUser"		        : { "path" : "stringProp[@name='HTTPSampler.proxyUser']" },
+				"proxyPass"		        : { "path" : "stringProp[@name='HTTPSampler.proxyPass']" },
+				"md5"		            : { "path" : "boolProp[@name='HTTPSampler.md5']" ,   "type" : "boolean" }
+			}
+		}
+	},
+	"HeaderManager"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" },
+				"ariablesXML" 	: { "get"  : "VariablesAsXML", "type": "xml", "path" : "collectionProp[@name='HeaderManager.headers']" }
+			},
+			"view": "GENERIC"
+		}
+	},
+	"RegexExtractor"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" },
+				"useHeaders"				   : { "path" : "stringProp[@name='RegexExtractor.useHeaders']" },
+				"refname"			 : { "path" : "stringProp[@name='RegexExtractor.refname']" },
+				"regex"		 : { "path" : "stringProp[@name='RegexExtractor.regex']" },
+				"template"		 : { "path" : "stringProp[@name='RegexExtractor.template']" },
+				"defaultValue"		 : { "path" : "stringProp[@name='RegexExtractor.default']" },
+				"match_number"		 : { "path" : "stringProp[@name='RegexExtractor.match_number']" , "type" : "number" },
+				"scope"		 : { "path" : "stringProp[@name='Sample.scope']" },
+				"variable"		 : { "path" : "stringProp[@name='Scope.variable']" },
+				"defaultEmptyValue"			: { "path" : "boolProp[@name='RegexExtractor.default_empty_value']" ,			"type" : "boolean"}
+			}
+		}
+	},
+	"BeanShellAssertion"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					 : { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" : { "path" : "@enabled" ,"type" : "boolean" },
+				"query"				   : { "path" : "stringProp[@name='BeanShellAssertion.query']" },
+				"filename"			 : { "path" : "stringProp[@name='BeanShellAssertion.filename']" },
+				"parameters"		 : { "path" : "stringProp[@name='BeanShellAssertion.parameters']" },
+				"resetInterpreter"			: { "path" : "boolProp[@name='BeanShellAssertion.resetInterpreter']" ,			"type" : "boolean"}
+			}
+		}
+	},
+	"ResultCollector"	: {
+		"edit" : {
+			"attrs": {
+				"name" 					: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" 	: { "path" : "@enabled" ,"type" : "boolean" }
+			},
+			"view": "GENERIC"
+		}
+	},
+	"ResultCollector"	: { "edit" : { "view": false, "processChildren": false } },
+	"ProxyControl"	    : { "edit" : { "view": false, "processChildren": false } },
+	"elementProp"		: { "edit" : { "view": false, "processChildren": true } },
+	"objectProp"		: { "edit" : { "view": false, "processChildren": true } },
+	"collectionProp"	: { "edit" : { "view": false, "processChildren": true } },
+	"boolProp"			: {
+		"edit" : {
+			"attrs": {
+				"name" 	: { "path" : "@name" },
+				"value" : { "path" : "." }
+			},
+			
+			"view": "<div> <form> <span class=\"label\"><%=name%></span> <input type=\"checkbox\" name=\"<%=name%>\" value=\"<%=value%>\" <%=(value==\"true\" ? \"checked\" : \"\")%> ></input> </form> </div>" ,
+			"type" : "boolean"
+		}
+	},
+	"stringProp"		: {
+		"edit" : {
+			"attrs": {
+				"name" 	: { "path" : "@name" },
+				"value" : { "path" : "." },
+				"parentName" : { "path" : "../@name" }
+			},
+			"view": "<div> <form> <span class=\"label\"> <%=name%> </span><input type=\"textbox\" name=\"<%=name%>\" value=\"<%=value%>\" title=\"<%=parentName%>\"></input><span class=\"label\"> <%=parentName%> </span> <form> </div>"  
+		}
+	},
+	"longProp"			: { 
+		"edit" : {
+			"attrs": {
+				"name" 	: { "path" : "@name" },
+				"value" : { "path" : "." }
+		    },
+		    "view": "<div> <form> <span class=\"label\"> <%=name%> </span><input type=\"textbox\" name=\"<%=name%>\" value=\"<%=value%>\"></input> </form> </div>" ,
+		    "type" : "number"
+		}
+	},
+	"intProp"			: { 
+		"edit" : {
+			"attrs": {
+				"name" 	: { "path" : "@name" },
+				"value" : { "path" : "." }
+		    },
+		    "view": "<div> <form> <span class=\"label\"> <%=name%> </span><input type=\"textbox\" name=\"<%=name%>\" value=\"<%=value%>\"></input> </form> </div>" ,
+		    "type" : "number"
+		}
+	},
+	"DEFAULT" : {
+		"edit" : {
+			"attrs": {
+				"name"	: { "path" : "@testname" },
+				"elementType" 			: { "path" : "name()"  },
+				"elementEnabled" : { "path" : "@enabled" ,"type" : "boolean" },
+				"value"	: { "get"  : "nodeAsXML", "type": "xml", "path" : "." }
+			}
+		}
+	}
+}
+

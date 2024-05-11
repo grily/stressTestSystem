@@ -1,0 +1,72 @@
+<!-- wm.html -->
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> jmx.js - a Web-based Editor for JMeter's JMX file format</title>
+	<script type="text/javascript" src="lib/jmx.min.js"></script>
+	<script type="text/javascript">
+
+	var jmxDoc;
+	var fileName = getQueryString("jmxFile");
+	var jmxName = getQueryString("jmxName");
+	// var URL = parent.location.host;
+	var URL = window.location.href.match(/http:\/\/(\S*)\/plugins\/jmxedit/)[1];
+	function load () {
+		JMX.init({"demo" : false});
+		jmxDoc = JMX.loadAndEdit("editor", "http://" + URL + "/testReport/" + fileName.replace("\\","/"));
+		document.getElementById("jmxname").value = jmxName;
+	}
+
+	function save () {
+		try{
+			JMX.save("http://" + URL + "/test/stressFile/jmxEdit",fileName,jmxDoc);	
+		}catch(e){
+			alert("保存失败！" + e);
+		}
+	}
+	
+	// Get URL parameters
+	function getQueryString (name) {
+	    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	    var r = window.location.search.substr(1).match(reg);
+	    if(r!=null) return decodeURIComponent(r[2]);
+	    return null;
+	}
+	</script>
+	<link rel="stylesheet" type="text/css" href="res/jmx.js.css"></link>
+	<link rel="stylesheet" type="text/css" href="res/demo.css"></link>
+	</style>
+</head>
+<body onload="load()">
+	<div id="header" style="width:70%">
+		<h1>Jmeter Jmx Edit</h1>
+	</div>
+	<div id="body">
+		<div class="col1">
+			<div class="controls" style="margin-top:10px;">
+				<span>Edit stressTest jmx file: </span>
+				<input type="text" name="jmxname" id="jmxname" size="40" disabled />
+				<button onclick="save();" style="background-color: #337AB7;cursor:pointer; width: 76px;height: 30px;color: #FFFFFF">保 存</button>
+			</div>
+			<div id="editor"></div>
+		</div>
+		<div class="col2">
+			<div class="help">
+				<ul>
+					<li> 点击 <span class="toggle">&gt;</span> and <span class="toggle">^</span> 控制节点展开和折叠.</li>
+					<li> 点击 <span class="toggle">...</span> 展开节点属性.</li>
+					<li> 通过 <span class="toggle"><input type="checkbox" name="isCheck" value="" checked="checked" /></span> 控制启用或禁用节点。</li>
+					<li> 点击 <span class="toggle">edit xml...</span> 对节点元素内容进行XML编辑，抽取的是节点下特定的XML内容。</li>
+					<li> 点击 <span class="toggle">Edit Raw...</span> 对未定义属性模板的节点进行XML编辑，所抽取的是该节点下所有的XML内容。</li>
+					<li> 可通过jmxelements.json定义节点元素属性，通过tmpl文件定义节点内容展示模板。没有定义的默认以 <strong>Edit Raw</strong> 编辑。</li>
+					<li> 点击 <strong>保存</strong> 将修改结果替换现有脚本文件。</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<h2>说明：</h2>
+		<p>由于脚本编辑不是主要功能，只是作为辅助工具，方便对在线脚本的简单修改。目前只对常用的一些节点配置了编辑模板，很多其他类别的节点还未配置，但可编辑其对应的XML内容。为避免人为操作失误，可以在编辑前先下载脚本到本地做个备份。</p>
+	</div>
+</body>
+</html>

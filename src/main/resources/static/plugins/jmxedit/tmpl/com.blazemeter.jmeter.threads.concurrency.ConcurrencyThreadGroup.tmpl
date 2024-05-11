@@ -1,0 +1,53 @@
+<!--
+	Rules: All input elements must be enclosed in a form
+	all resources must be referenced relative to res 
+ -->
+<div class="jmxElement <%=elementType%>" >
+	<form>
+		<div class="headline">
+			<img src="res/thread.gif"/>
+			<span class="jmxType">ConcurrencyThreadGroup</span>
+			<span class="label">Name</span> <input type="textbox" name="elementName" value="<%=elementName%>"></input>
+			<span> <input type="checkbox" value="" name="elementEnabled" <%=(elementEnabled==true ? "checked" : "")%> ></input></span>
+			<span class="toggle toggleAttrs"> ... </span>
+		</div>
+		<div class="body collapsed">
+			<div>
+				<div><strong>Action to be taken after a sampler error</strong></div>
+				<!-- TODO: put in correct values instead of C, STNL etc -->
+				<input type="radio" name="onSampleError" value="continue" <%=(onSampleError=='continue'? "checked" : "" )%> >Continue</input>
+				<input type="radio" name="onSampleError" value="startnextloop" <%=(onSampleError=='startnextloop'? "checked" : "" )%> >Start Next Thread Loop</input>
+				<input type="radio" name="onSampleError" value="stopthread" <%=(onSampleError=='stopthread'? "checked" : "" )%> >Stop Thread</input>
+				<input type="radio" name="onSampleError" value="stoptest" <%=(onSampleError=='stoptest'? "checked" : "" )%> >Stop Test</input>
+				<input type="radio" name="onSampleError" value="stoptestnow" <%=(onSampleError=='stoptestnow'? "checked" : "" )%> >Stop Test Now</input>
+			</div>
+			<div>
+				<div><strong>Thread Properties</strong></div>
+				<div class="strProp">
+					<span class="label">Target Concurrency:</span> <input type="textbox" name="TargetLevel" value="<%=TargetLevel%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">Ramp Up Time (<span id="timeTypeShow1"><%=(Unit=='S'? "sec" : "min" )%></span>):</span> <input type="textbox" name="RampUp" value="<%=RampUp%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">Ramp-Up Steps Count:</span> <input type="textbox" name="Steps" value="<%=Steps%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">Hold Target Rate Time (<span id="timeTypeShow2"><%=(Unit=='S'? "sec" : "min" )%></span>)</span> <input type="textbox" name="Hold" value="<%=Hold%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">Time Unit:</span> 
+					<input type="radio" name="Unit" value="M" <%=(Unit=='M'? "checked" : "" )%> onclick="if(this.checked){var timeUnitText = this.nextSibling.nodeValue.substring(0,3);timeTypeShow1.innerHTML = timeUnitText;timeTypeShow2.innerHTML = timeUnitText;}" >minutes
+					<input type="radio" name="Unit" value="S" <%=(Unit=='S'? "checked" : "" )%> onclick="if(this.checked){var timeUnitText = this.nextSibling.nodeValue.substring(0,3);timeTypeShow1.innerHTML = timeUnitText;timeTypeShow2.innerHTML = timeUnitText;}" >seconds
+				</div>
+				<div class="strProp">
+					<span class="label">Thread Iterations Limit:</span> <input type="textbox" name="Iterations" value="<%=Iterations%>"></input>
+				</div>
+				<div class="strProp">
+					<span class="label">Log Threads Status into File:</span> <input type="textbox" name="LogFilename" value="<%=LogFilename%>"></input>
+				</div>
+			</div>
+
+		</div>
+	</form>
+</div>

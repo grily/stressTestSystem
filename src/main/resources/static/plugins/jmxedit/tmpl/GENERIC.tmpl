@@ -1,0 +1,18 @@
+<div class="jmxElement <%=elementType%>" >
+	<form>
+		<div class="headline">
+		    <% if (elementType.slice(-5)=="Timer") {%>
+			<img class="icon" src="res/appointment-new-3.png"/>
+			<% } else if (elementType.substring(0, 11)=="Transaction") {%>
+			<img class="icon" src="res/view-list-tree.png"/>
+			<% } else {%>
+			<img class="icon" src="res/feather.gif"/>
+			<% }%>
+			<span class="jmxType"><%=elementType%></span>
+			<span class="label">Name</span> <input type="textbox" name="name" value="<%=name%>"></input>
+			<span> <input type="checkbox" value="" name="elementEnabled" <%=(elementEnabled==true ? "checked" : "")%> ></input></span>
+			<span class="toggle toggleAttrs"> ... </span>
+		</div>
+		<div class="body collapsed <%=elementType%>_children"></div>
+	</form>
+</div>
